@@ -24,6 +24,15 @@ const paths = {
   loader: '<path d="M12 3a9 9 0 1 0 9 9"/>',
   alert: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/>',
   shoe: '<path d="M3 16.5V9.5c0-.8.7-1.5 1.5-1.5H7l2 3.5c.6 1 1.6 1.5 2.7 1.5h1.8l4.6 1.5c1.7.5 2.9 2 2.9 3.8V19H4.5A1.5 1.5 0 0 1 3 17.5z"/><path d="M3 16h18"/><path d="M11 11l1.5-1.5M13 12.5l1.5-1.5"/>',
+  hanger: '<path d="M12 7.5a2 2 0 1 1 2-2c0 1-1 1.5-2 2.3V9"/><path d="M12 9l8.6 6.2c.9.6.4 1.8-.6 1.8H4c-1 0-1.5-1.2-.6-1.8z"/>',
+  chat: '<path d="M5 18.5V6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v6a2.5 2.5 0 0 1-2.5 2.5H9z"/><path d="M9 9h6M9 12h4"/>',
+  bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/>',
+  send: '<path d="M4 12l16-8-6 16-2.5-6.5z"/><path d="M11.5 13.5L20 4"/>',
+  ruler: '<rect x="3" y="8" width="18" height="8" rx="2"/><path d="M7 8v3M11 8v4M15 8v3M19 8v2"/>',
+  drop: '<path d="M12 3.5s6 6.3 6 10.5a6 6 0 0 1-12 0c0-4.2 6-10.5 6-10.5z"/>',
+  box: '<path d="M3.5 8L12 4l8.5 4v8L12 20l-8.5-4z"/><path d="M3.5 8L12 12l8.5-4M12 12v8"/>',
+  grid: '<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
+  foot: '<path d="M12 21c-3 0-4.5-2.2-4.5-5.5S9 8 12 8s4.5 4.2 4.5 7.5S15 21 12 21z"/><circle cx="8" cy="4.5" r="1.2"/><circle cx="11" cy="3.5" r="1.2"/><circle cx="14" cy="4" r="1.2"/><circle cx="16.5" cy="5.5" r="1"/>',
   trash: '<path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13"/>',
 };
 

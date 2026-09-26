@@ -1,9 +1,11 @@
 // Keeps the app opening offline. Only this app's own files are cached;
 // requests to Anthropic and the SDK CDN always go to the network.
-const CACHE = 'shoe-rack-v1';
+const CACHE = 'shoe-rack-v2';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',
-  './js/app.js', './js/rack.js', './js/store.js', './js/image.js', './js/ai.js', './js/ui.js',
+  './js/app.js', './js/shared.js', './js/rack.js', './js/store.js', './js/image.js', './js/ai.js', './js/ui.js',
+  './js/views/rack.js', './js/views/pair.js', './js/views/check.js', './js/views/scan.js', './js/views/insights.js',
+  './js/views/style.js', './js/views/ask.js', './js/views/family.js', './js/views/settings.js',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png',
 ];
 
