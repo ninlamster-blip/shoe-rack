@@ -1,0 +1,10 @@
+{
+  "name": "shoe-rack",
+  "private": true,
+  "type": "module",
+  "description": "Family shoe rack organiser — photograph a pair, the app says which shelf it belongs on.",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "start": "python3 -m http.server 8080"
+  }
+}
