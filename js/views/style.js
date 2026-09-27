@@ -1,6 +1,7 @@
 import { typeOf, inventory, knownIds } from '../rack.js';
 import { shrink, base64Of } from '../image.js';
 import { styleShoes, shoesForOutfit } from '../ai.js';
+import { boardHtml, cleanPieces } from '../outfit.js';
 import { settings } from '../store.js';
 import { esc, icon, toast } from '../ui.js';
 import {
@@ -161,9 +162,8 @@ export function renderLooks(id) {
   else if (l.status === 'done') {
     body = `<ul class="list">${l.result.looks.map((look) => `
       <li class="look">
-        <p class="title">${esc(look.title)}<span class="tag">${esc(look.occasion)}</span></p>
-        <ul class="pieces">${look.pieces.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-        ${look.colours.length ? `<p class="colours">${look.colours.map((c) => `<span>${esc(c)}</span>`).join('')}</p>` : ''}
+        <p class="title">${esc(look.title)}${look.occasion ? `<span class="tag">${esc(look.occasion)}</span>` : ''}</p>
+        ${look.pieces.length ? boardHtml(look.pieces, { shoePhoto: p.photo, shoeLabel: pairLabel(p) }) : ''}
         <p class="desc">${esc(look.why)}</p>
       </li>`).join('')}</ul>
       ${l.result.avoid ? `<div class="notice">${icon('alert')}<span>${esc(l.result.avoid)}</span></div>` : ''}`;
@@ -177,7 +177,7 @@ export function renderLooks(id) {
         <p class="head-sub">${esc(pairLabel(p))}${memberName(p.owner) ? ` · ${esc(memberName(p.owner))}` : ''}</p>
       </header>
       <section class="form-body">
-        ${p.photo ? `<div class="photo small"><img src="${p.photo}" alt=""></div>` : ''}
+        ${p.photo && l.status !== 'done' ? `<div class="photo small"><img src="${p.photo}" alt=""></div>` : ''}
         <p class="section-title">Occasion <span class="muted">(optional)</span></p>
         ${occasionChips(l.occasion, 'look-occasion')}
         <button class="btn block" style="margin:18px 0" data-action="run" ${l.status === 'working' ? 'disabled' : ''}>${icon('sparkle')} ${l.status === 'done' ? 'New ideas' : 'Suggest outfits'}</button>
@@ -191,11 +191,10 @@ export function renderLooks(id) {
     try {
       const raw = await styleShoes(apiKey(), p.photo ? base64Of(p.photo) : '', p, l.occasion);
       const text = (v, n) => String(v ?? '').slice(0, n);
-      const strings = (a, n) => (Array.isArray(a) ? a : []).map((x) => text(x, 60)).filter(Boolean).slice(0, n);
       l.result = {
         looks: (Array.isArray(raw?.looks) ? raw.looks : []).slice(0, 3).map((x) => ({
           title: text(x?.title, 60), occasion: text(x?.occasion, 30), why: text(x?.why, 200),
-          pieces: strings(x?.pieces, 6), colours: strings(x?.colours, 5),
+          pieces: cleanPieces(x?.pieces),
         })),
         avoid: text(raw?.avoid, 160),
       };
