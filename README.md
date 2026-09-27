@@ -47,7 +47,9 @@ the exact left-to-right order.
   four months (Keep hides one for six months).
 - **Style** — photograph a dress or outfit and get the best shoes for it from
   the chosen person's pairs, plus alternatives and what would suit it better if
-  nothing does. Or pick a pair and get three outfit ideas for it.
+  nothing does. Or pick a pair and get three outfit ideas for it, each drawn
+  as a flat-lay board: the garments illustrated in their colours, laid out
+  beside the real shoe photo.
 - **Ask** — ask anything about the rack: "Where are Ali's school shoes?",
   "What haven't we worn this year?", "What goes with a navy suit?"
 - **Family** — each person, their shoe size, and whether they're a child whose
@@ -104,6 +106,7 @@ css/app.css           the whole design system
 js/app.js             routing only
 js/shared.js          state and helpers every screen uses
 js/views/*.js         one file per screen
+js/outfit.js          draws outfit boards from Claude's garment list (tested)
 js/rack.js            the rules: plan, placement, suggestions, wear, sizes, care,
                       checking the model's answers (no DOM, tested)
 js/ai.js              the only file that talks to the network

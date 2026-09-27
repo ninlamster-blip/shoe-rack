@@ -7,7 +7,8 @@
 //   recognise a pair   one shoe photo
 //   scan the rack      one rack photo
 //   check a shelf      one shelf photo
-//   style a pair       that pair's photo and its type/colour/name
+//   style a pair       that pair's photo and its type/colour/name; the answer
+//                      is garments to draw (js/outfit.js), not pictures
 //   shoes for outfit   one outfit photo, the occasion you typed, and a text
 //                      list of candidate pairs (no photos, no names)
 //   ask your rack      your question, the last few turns, and a text list of
@@ -18,6 +19,7 @@
 // only to api.anthropic.com.
 
 import { TYPE_IDS, COLOURS, CONDITIONS } from './rack.js';
+import { KINDS, PATTERNS } from './outfit.js';
 
 const SDK_URL = 'https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@0.128.0/+esm';
 export const MODEL = 'claude-opus-5';
@@ -73,8 +75,13 @@ const SHELF_SCHEMA = obj({
 const LOOKS_SCHEMA = obj({
   looks: list(obj({
     title: str('e.g. "Weekend brunch"'),
-    pieces: list(str()),
-    colours: list(str()),
+    pieces: list(obj({
+      kind: oneOf(KINDS),
+      name: str('Short, specific, e.g. "Linen midi dress", "Straight-leg jeans".'),
+      colour: str('The colour as a hex code, e.g. "#a7b89a".'),
+      colour_name: str('One or two words, e.g. "sage", "light denim".'),
+      pattern: oneOf(PATTERNS),
+    })),
     occasion: str(),
     why: str('One sentence on why it works with these shoes.'),
   })),
@@ -160,9 +167,12 @@ export function styleRequest(photo, pair, occasion = '') {
       ...(photo ? [image(photo)] : []),
       {
         type: 'text',
-        text: `These shoes are: ${about} (${pair.type}). Suggest three complete outfits they would look good with — ` +
-          'specific pieces a family wardrobe is likely to have (dresses, trousers, skirts, shirts, abayas, jackets), ' +
-          `with colours. Vary the occasions.${occasion ? ` Focus on this occasion: ${occasion}.` : ''}`,
+        text: `These shoes are: ${about} (${pair.type}). Suggest three complete outfits they would look good with, ` +
+          'from pieces a family wardrobe is likely to have. Each outfit is drawn as a flat-lay picture, so give 3–5 ' +
+          'pieces: either a dress or abaya, or a top (top, shirt or knit) with a bottom (trousers, shorts or skirt); ' +
+          'optionally a jacket or coat and one or two accessories (scarf or hijab, bag, hat, belt, jewellery). ' +
+          'Do not list the shoes themselves. Give each piece a realistic colour as a hex code, and a pattern only if ' +
+          `it really matters to the look. Vary the occasions.${occasion ? ` Focus on this occasion: ${occasion}.` : ''}`,
       },
     ],
   });
